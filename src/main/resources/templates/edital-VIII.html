@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anexo VIII</title>
+    <style>
+      /* Document Setup */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: #000;
+      }
+
+      /* Main Container */
+      .page-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+
+      /* Flexbox Header - Single Image on the Right */
+      .header {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 15px;
+        margin-bottom: 10px;
+      }
+
+      /* Flexbox Footer - Official Address */
+      .footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+        padding-right: 20px;
+        font-size: 7pt;
+        color: #555;
+        text-align: right;
+        line-height: 1.4;
+      }
+
+      .logo {
+        max-height: 75px;
+      }
+
+      /* Typography & Layout */
+      .text-center {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .text-justify {
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+
+      /* Checkboxes */
+      .checkbox-group {
+        margin: 20px 0;
+      }
+      .checkbox-line {
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      /* Flexbox Signatures */
+      .assinaturas-container {
+        margin-top: 60px;
+      }
+
+      .assinatura-presidente {
+        width: 60%;
+        margin: 0 auto 50px auto;
+        text-align: center;
+      }
+
+      /* Physical signature lines */
+      .assinatura-linha {
+        border-top: 1px solid #000;
+        margin-top: 40px;
+        margin-bottom: 5px;
+      }
+
+      .assinatura-membros {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+      }
+
+      .membro-box {
+        width: 45%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="header">
+        <img
+          width="300px"
+          src="http://localhost:8080/images/logos_cps_governo_com_slogan_vertical_cor.png"
+          alt="Fatec"
+          class="logo"
+        />
+      </div>
+
+      <div class="text-center" style="margin-bottom: 25px">
+        <span class="bold" style="font-size: 12pt">Administração Central</span
+        ><br />
+        <span style="font-size: 10pt"
+          >Coordenadoria Geral de Ensino Superior de Graduação</span
+        >
+      </div>
+
+      <div class="text-center bold">
+        FACULDADE DE TECNOLOGIA
+        <span th:text="${faculdade}"></span>
+      </div>
+
+      <div class="text-justify">
+        <span class="bold"
+          >ANÁLISE E VALIDAÇÃO DA TABELA DE PONTUAÇÃO DOCENTE E DOCUMENTAÇÃO
+          COMPROBATÓRIA APRESENTADA PELO CANDIDATO PARA O EDITAL Nº
+        </span>
+        <span th:text="${edital_num} + '/' + ${edital_ano}"></span>
+        <span class="bold">, DE OFERECIMENTO DE AULAS, POR TEMPO </span>
+        <span th:text="${edital_tempo}"></span>
+        <span class="bold">, PARA A FACULDADE DE TECNOLOGIA </span>
+        <span th:text="${faculdade}"></span>
+        <span class="bold"
+          >, DO CENTRO ESTADUAL DE EDUCAÇÃO TECNOLÓGICA "PAULA SOUZA"</span
+        >
+      </div>
+
+      <div class="text-justify">
+        <span class="bold">CANDIDATO:</span>
+        <span th:text="${candidato}"></span>
+      </div>
+
+      <div class="text-justify">
+        A Comissão Avaliadora responsável pelo processo de alteração de carga
+        horária de docente do edital nº
+        <span th:text="${edital_num} + '/' + ${edital_ano}"></span>, expedido
+        pela Faculdade de Tecnologia <span th:text="${faculdade}"></span>, no
+        uso de suas atribuições, faz saber ao interessado sobre a
+        conformidade/não conformidade da tabela de pontuação docente e
+        documentação nos seguintes termos:
+      </div>
+
+      <div class="checkbox-group">
+        <div class="checkbox-line">
+          (
+          <span
+            th:text="${statusConformidade == 'conforme' ? 'X' : '&nbsp;&nbsp;'}"
+          ></span>
+          ) Conformidade;
+        </div>
+        <div class="checkbox-line">
+          (
+          <span
+            th:text="${statusConformidade == 'inconforme' ? 'X' : '&nbsp;&nbsp;'}"
+          ></span>
+          ) Não conformidade (Justificar);
+        </div>
+      </div>
+
+      <div style="margin: 30px 0" th:if="${statusConformidade == 'inconforme'}">
+        <span class="bold"
+          >Justificativa (somente no caso de não conformidade):</span
+        ><br />
+        <div
+          style="margin-top: 10px; text-align: justify; font-size: 8pt"
+          th:text="${justificativa}"
+        ></div>
+      </div>
+
+      <div class="text-justify" style="text-align: right; margin-top: 40px">
+        São Paulo,
+        <span th:text="${dia}"></span> de <span th:text="${mes}"></span> de
+        20<span th:text="${ano}"></span>.
+      </div>
+
+      <div class="assinaturas-container">
+        <div class="assinatura-presidente">
+          <div class="assinatura-linha"></div>
+          Prof(a). <span th:text="${presidente_name}"></span><br />
+          <span class="bold">Presidente</span><br />
+          RG. <span th:text="${presidente_rg}"></span>
+        </div>
+
+        <div class="assinatura-membros">
+          <div class="membro-box">
+            <div class="assinatura-linha"></div>
+            Prof(a). <span th:text="${prof_name}"></span><br />
+            RG. <span th:text="${prof_rg}"></span>
+          </div>
+
+          <div class="membro-box">
+            <div class="assinatura-linha"></div>
+            Técnico administrativo <span th:text="${tecnico_name}"></span><br />
+            RG. <span th:text="${tecnico_rg}"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Rua dos Andradas, 140 | Santa Ifigênia | 01208-000 | São Paulo - SP<br />
+        Tel.: +55 11 3324-3300 | www.cps.sp.gov.br
+      </div>
+    </div>
+  </body>
+</html>
