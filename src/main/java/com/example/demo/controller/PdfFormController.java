@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AnexoVDTO;
 import com.example.demo.dto.AnexoViiiDTO;
 import com.example.demo.service.PdfGenerationService;
 import tools.jackson.databind.ObjectMapper;
@@ -63,6 +64,30 @@ public class PdfFormController {
                     
                     templateName = "edital-VIII";
                     break;
+                    
+                case "v":
+                        AnexoVDTO dtoV = objectMapper.convertValue(formData, AnexoVDTO.class);
+                        
+                        context.setVariable("faculdade", dtoV.getFaculdade());
+                        context.setVariable("edital_num", dtoV.getEdital_num());
+                        context.setVariable("edital_ano", dtoV.getEdital_ano());
+                        context.setVariable("docente_nome", dtoV.getDocente_nome());
+                        context.setVariable("docente_rg", dtoV.getDocente_rg());
+                        
+                        context.setVariable("dia", dtoV.getDia());
+                        context.setVariable("mes", dtoV.getMes());
+                        context.setVariable("ano", dtoV.getAno());
+    
+                        // Pass the arrays for the tables
+                        context.setVariable("candidato_nome", dtoV.getCandidato_nome());
+                        context.setVariable("candidato_rg", dtoV.getCandidato_rg());
+                        context.setVariable("aulas_fatec", dtoV.getAulas_fatec());
+                        context.setVariable("contrato", dtoV.getContrato());
+                        context.setVariable("pontos", dtoV.getPontos());
+                        context.setVariable("indeferido_rg", dtoV.getIndeferido_rg());
+    
+                        templateName = "edital-V";
+                        break;
                     
                 case "ix":
                     // Setup logic for Anexo IX...

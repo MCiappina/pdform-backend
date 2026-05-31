@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anexo V</title>
+    <style>
+      /* Configuração Geral do Documento */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: #000;
+      }
+
+      /* Container Principal com Margens Controladas */
+      .page-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        box-sizing: border-box;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      /* Layout do Cabeçalho - Alinhado à Direita */
+      .header {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 15px;
+        margin-bottom: 10px;
+      }
+
+      /* Layout do Rodapé - Posicionado Absolutamente na Base */
+      .footer {
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        width: 100%;
+        font-size: 7pt;
+        color: #555;
+        text-align: right;
+        line-height: 1.4;
+      }
+
+      .logo {
+        max-height: 75px;
+      }
+
+      /* Tipografia & Alinhamentos */
+      .text-center {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .text-justify {
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+
+      /* Estilização Uniforme das Tabelas */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 25px;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+      th {
+        background-color: lightgray;
+        font-size: 10pt;
+        font-weight: bold;
+      }
+      td {
+        font-size: 10pt;
+      }
+
+      /* Segurança contra quebra de página desordenada nas assinaturas */
+      .assinaturas-container {
+        margin-top: 50px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      
+      <div class="header">
+        <img
+          width="300px"
+          src="http://localhost:8080/images/logos_cps_governo_com_slogan_vertical_cor.png"
+          alt="Fatec"
+          class="logo"
+        />
+      </div>
+
+      <div class="text-center" style="margin-bottom: 25px">
+        <span class="bold" style="font-size: 12pt">Administração Central</span><br />
+        <span style="font-size: 10pt">Coordenadoria Geral de Ensino Superior de Graduação</span>
+      </div>
+
+      <div class="text-center bold" style="margin-bottom: 25px;">
+        FACULDADE DE TECNOLOGIA <span th:text="${faculdade}"></span>
+      </div>
+
+      <div class="text-center bold" style="margin-bottom: 30px;">
+        DIVULGAÇÃO DO RESULTADO FINAL DO EDITAL DE OFERECIMENTO DE AULAS Nº 
+        <span th:text="${edital_num} + '/' + ${edital_ano}"></span>
+      </div>
+
+      <p class="text-justify" style="line-height: 1.6;">
+        O(A) Coordenador(a) da Faculdade de Tecnologia <span th:text="${faculdade}"></span>, no uso de suas atribuições, faz saber aos interessados o resultado final do Edital de oferecimento de aulas nº <span th:text="${edital_num} + '/' + ${edital_ano}"></span>.
+      </p>
+
+      <p style="margin-top: 20px;">
+        Classificação nos termos de Deliberação Ceeteps n. 109/2026 e da instrução CGESG n. 03/2026:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Classificação</th>
+            <th>Nome do(a) Candidato(a)</th>
+            <th>RG do candidato(a)</th>
+            <th>Aulas nesta Fatec</th>
+            <th>Contrato</th>
+            <th>Pontuação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="nome, iterStat : ${candidato_nome}">
+            <td th:text="${iterStat.count} + 'º'"></td>
+            <td class="bold" th:text="${nome}"></td>
+            <td th:text="${candidato_rg[iterStat.index]}"></td>
+            <td th:text="${aulas_fatec[iterStat.index] == '1' ? 'X' : ''}"></td>
+            <td th:text="${contrato[iterStat.index] == 'DETERMINADO' ? 'Determinado' : 'Indeterminado'}"></td>
+            <td th:text="${pontos[iterStat.index]}"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="text-justify" style="line-height: 1.6;">
+        Em cumprimento ao disposto na Deliberação Ceeteps n. 109/2026 e na instrução CGESG n. 03/2026, o docente selecionado foi: <span class="bold" th:text="${docente_nome}"></span>, RG nº <span th:text="${docente_rg}"></span>.
+      </p>
+
+      <p style="margin-top: 30px; font-weight: bold;">Relação de candidatos indeferidos:</p>
+      <table style="width: 50%; margin: 10px 0;">
+        <thead>
+          <tr>
+            <th>RG do candidato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="rg : ${indeferido_rg}">
+            <td style="height: 25px;" th:text="${rg}"></td>
+          </tr>
+          <tr th:if="${indeferido_rg == null or indeferido_rg.isEmpty()}">
+            <td style="height: 25px; color: #555; font-style: italic;">Nenhum candidato indeferido.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="text-justify" style="margin-top: 30px;">
+        O docente classificado e convocado deverá dar o aceite por e-mail (para fXXXeditais@cps.sp.gov.br) em até três dias úteis.
+      </p>
+      
+      <div style="margin-top: 40px; text-align: right;">
+        São Paulo, 
+        <span th:text="${dia}"></span> de <span th:text="${mes}"></span> de 20<span th:text="${ano}"></span>.
+      </div>
+
+      <div class="assinaturas-container">
+        <div style="border-top: 1px solid #000; width: 300px; padding-top: 5px; margin-top: 50px;">
+          Prof(a).<br />
+          Coordenador(a) da Fatec
+        </div>
+      </div>
+
+      <div class="footer">
+        Rua dos Andradas, 140 | Santa Ifigênia | 01208-000 | São Paulo - SP<br />
+        Tel.: +55 11 3324-3300 | www.cps.sp.gov.br
+      </div>
+
+    </div>
+  </body>
+</html>
