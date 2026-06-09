@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anexo IX</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: #000000;
+      }
+      .content {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      .logo-container {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+      .logo-container img {
+        height: 80px;
+        object-fit: contain;
+      }
+
+      h3,
+      h4 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      h4 {
+        font-size: 12pt;
+      }
+
+      .text-center {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .text-justify {
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="number"] {
+        border: none;
+        border-bottom: 1px solid #000000;
+        background: transparent;
+        font-family: Arial, sans-serif;
+        font-size: 11pt;
+        padding: 0 5px;
+        outline: none;
+      }
+
+      .termo-aceite-box {
+        text-align: justify;
+        font-size: 11pt;
+        margin: 30px auto;
+        padding: 0 20px;
+        line-height: 1.8;
+      }
+
+      .data-container {
+        text-align: right;
+        margin: 40px 0;
+      }
+
+      .bloco-final {
+        margin-top: 60px;
+      }
+
+      .assinaturas-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 60px;
+      }
+
+      .assinatura-coordenador {
+        width: 60%;
+        margin: 0 auto 50px auto;
+        text-align: center;
+      }
+
+      .assinatura-linha {
+        border-top: 1px solid #000;
+        margin-top: 40px;
+        margin-bottom: 5px;
+      }
+      .logo {
+        max-height: 75px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <form id="form">
+        <div class="logo-container">
+          <img
+          width="300px"
+          src="http://localhost:8080/images/logos_cps_governo_com_slogan_vertical_cor.png"
+            alt="Fatec logo" class="logo"
+          />
+        </div>
+
+        <div class="text-center bold" style="margin-bottom: 30px">
+          FACULDADE DE TECNOLOGIA DA <span th:text="${faculdade}"></span>
+        </div>
+
+        <h4>CONVOCAÇÃO DE DOCENTE CLASSIFICADO</h4>
+
+        <div class="text-center">
+          <b
+            >EDITAL DE OFERECIMENTO DE AULAS N.
+            <span th:text="${edital_num} + '/' + ${edital_ano}"></span
+          ></b>
+          <b>Instrução CGESG n. 03/2026</b>
+        </div>
+
+        <div class="text-justify">
+          Como resultado do processo de classificação referente ao Edital de
+          Oferecimento de Aulas nº
+          <span th:text="${edital_num} + '/' + ${edital_ano}"></span>
+          o(a) Coordenador(a) da Fatec convoca para aceite (a ser dado por
+          e-mail) da atribuição de aulas o docente:
+        </div>
+
+        <div class="text-justify">
+         <span th:text="${docente_name}"></span>,
+          RG: <span th:text="${docente_rg}"></span>
+        </div>
+
+        <div class="text-justify">
+          O(A) Coordenador(a) da Fatec ainda informa que o docente deverá, em
+          resposta a esta convocação, para lograr a alteração de carga horária,
+          dar o aceite por e-mail, ao endereço eletrônico
+          f111editais@cps.sp.gov.br, no prazo de três dias úteis, com mensagem
+          nos seguintes termos:
+        </div>
+
+        <div class="termo-aceite-box">
+          <i
+            >Dou o aceite nos termos da convocação recebida, informando que
+            tomei ciência das condições do Edital e estou de acordo com suas
+            normativas, sendo a documentação comprobatória, preteritamente
+            apresentada para participar do certame, expressão da verdade,
+            assumindo inteira responsabilidade pela documentação apresentada,
+            sob as penas da lei.</i
+          >
+        </div>
+
+        <div class="data-container">
+          <span>São Paulo, </span><span th:text="${dia}"></span> <span>de</span>
+          <span th:text="${mes}"></span> <span>de</span> <span th:text="${ano}"></span>.
+        </div>
+
+        <div class="assinaturas-container">
+          <div class="assinatura-coordenador">
+            <div class="assinatura-linha"></div>
+            Prof(a). <span th:text="${coordenador_name}"></span><br />
+            <span>Coordenador(a) da Fatec da Zona Leste</span><br />
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
