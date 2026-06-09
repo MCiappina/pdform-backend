@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AnexoVDTO;
 import com.example.demo.dto.AnexoViiiDTO;
+import com.example.demo.dto.AnexoIXDTO;
 import com.example.demo.service.PdfGenerationService;
 import tools.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
@@ -91,8 +92,26 @@ public class PdfFormController {
                     
                 case "ix":
                     // Setup logic for Anexo IX...
-                    break;
+                        AnexoIXDTO dtoIX = objectMapper.convertValue(formData, AnexoIXDTO.class);
 
+                        context.setVariable("faculdade", dtoIX.getFaculdade());
+                        context.setVariable("edital_num", dtoIX.getEdital_num());
+                        context.setVariable("edital_ano", dtoIX.getEdital_ano());
+                        context.setVariable("docente_name", dtoIX.getDocente_name());
+                        context.setVariable("docente_rg", dtoIX.getDocente_rg());
+                        context.setVariable("data", dtoIX.getData());
+                        context.setVariable("coordenador_name", dtoIX.getCoordenador_name());
+                        context.setVariable("coordenador_rg", dtoIX.getCoordenador_rg());
+
+                        context.setVariable("dia", dtoIX.getDia());
+                        context.setVariable("mes", dtoIX.getMes());
+                        context.setVariable("ano", dtoIX.getAno());
+                        
+                        templateName = "edital-IX";
+                        break;
+                case "iii":
+                    // proximo anexo...
+                    break;
                 default:
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
