@@ -20,6 +20,7 @@ public class PdfGenerationService {
     public byte[] generatePdfFromContext(String templateName, Context context) {
         
         // 1. Process the HTML template to a String (Thymeleaf doing its job)
+        context.setVariable("baseUrl", "http://localhost:10000");
         String htmlContent = templateEngine.process(templateName, context);
 
         // 2. Spin up Playwright to act as our "Printer"
