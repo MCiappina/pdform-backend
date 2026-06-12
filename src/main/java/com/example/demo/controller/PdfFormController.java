@@ -34,6 +34,7 @@ public class PdfFormController {
 
         try {
             Context context = new Context();
+            context.setVariable("baseUrl", "http://localhost:10000");
             String templateName = "";
 
             // Switch statement routes the data to the correct DTO and Template
