@@ -7,7 +7,7 @@ RUN mvn clean package -DskipTests
 
 # Stage 2: Run using Microsoft's Official Playwright+Java image
 # NOTE: Change "v1.49.0" to match the version of Playwright in your pom.xml
-FROM mcr.microsoft.com/playwright/java:v1.49.0-noble
+FROM mcr.microsoft.com/playwright/java:v1.44.0
 WORKDIR /app
 
 # Tell Playwright to use the pre-installed browsers instead of downloading new ones
